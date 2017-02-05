@@ -11,7 +11,7 @@
     "clean": "rimraf node_modules doc dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
-    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name NHttp2 --excludeExternals --out docs",
+    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name NHttp2 --excludeExternals --out docs && node ./post-docs",
     "server": "webpack-dev-server --inline --progress --port 8080",
     "server:docs": "lite-server -c lite-server.config.js",
     "start": "npm run server",
