@@ -1,0 +1,20 @@
+<header>
+  <h1 class="title">Hello</h1>
+</header>
+<main>
+
+  <!-- Images (and assets) are parsed and loaded from within the public directory -->
+  <img src="/img/angular.png">
+
+  <div>
+    <input type="file" (change)="onFileInputChange($event)">
+    <button (click)="uploadSomething()">Try UPLOAD</button>
+  </div>
+
+  <div>
+    <button (click)="getSomething()">Try GET</button>
+  </div>
+</main>
+<footer>
+  <a [attr.href]="url">Angular Library Seed</a>
+</footer>
