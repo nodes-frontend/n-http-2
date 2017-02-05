@@ -59,6 +59,7 @@ __build__/**
 *.d.ts
 !*.e2e.js
 !prep.js
+!post-docs.js
 !make.js
 !karma*.js
 !protractor.conf.js
