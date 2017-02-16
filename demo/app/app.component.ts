@@ -4,6 +4,7 @@ import '../style/app.scss';
 import {NHttp} from '../../lib/n-http.service';
 import {Headers} from '@angular/http';
 import {NHttpUpload} from "../../lib/n-http-fileupload.service";
+import {NEndpoints} from "../../lib/n-endpoints";
 
 @Component({
   selector: 'my-app', // <my-app></my-app>
@@ -14,9 +15,24 @@ export class AppComponent {
   pipeTest: string = 'Create an amazing community by contributing a library';
   url: string = 'https://github.com/preboot/angular-library-seed';
 
+  public email: string = 'test@user.com';
+  public password: string = 'Password1';
+
   private file: any;
 
-  constructor(private http: NHttp, private upload: NHttpUpload) {}
+  constructor(private endpoints: NEndpoints,private http: NHttp, private upload: NHttpUpload) {
+    console.log(this.endpoints.rootUrl);
+
+    let rootUrl = this.endpoints.rootUrl;
+
+    let testUrl = this.endpoints.makeUrl([
+      this.endpoints.makeRoute(this.endpoints.routes['listings']['single'], {':listingId': 50680}),
+      this.endpoints.makeRoute(this.endpoints.routes['messages']['single'], {':messageId': 4})
+    ]); //
+
+    console.log(testUrl);
+
+  }
 
   getSomething() {
     let authHeaders = new Headers();
@@ -48,6 +64,17 @@ export class AppComponent {
 
   onFileInputChange(event: any) {
     this.file = event.target.files[0];
+  }
+
+  login() {
+    const url = this.endpoints.makeUrl([
+      this.endpoints.makeRoute(this.endpoints.routes['auth']['login']),
+    ]);
+
+    this.http.post(url, {email: this.email, password: this.password}).subscribe(
+        res => console.log(res),
+        err => console.log(err)
+    )
   }
 
 }

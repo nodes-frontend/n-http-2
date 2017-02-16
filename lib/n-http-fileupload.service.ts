@@ -29,7 +29,7 @@ enum ResponseType {
 @Injectable()
 export class NHttpUpload {
 
-    public progressSubject = new Subject<any>();
+    public progressSubject = new Subject();
     public progress$: Observable<any>;
     private config: INHttpConfig;
 
@@ -38,7 +38,7 @@ export class NHttpUpload {
         this.progress$ = this.progressSubject.asObservable();
     }
 
-    public upload(url: string, body: any, options?: RequestOptionsArgs) {
+    public upload(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
 
         return new Observable<Response>((responseObserver: Observer<Response>) => {
 
@@ -114,8 +114,8 @@ export class NHttpUpload {
                     _xhr.setRequestHeader(key, headerValue);
                 });
             }
-            if(this.config.nMeta.disable === false) {
-                _xhr.setRequestHeader('N-Meta', [this.config.nMeta.platform, this.config.nMeta.environment].join(';'));
+            if(this.config.nMetaDisable === false) {
+                _xhr.setRequestHeader('N-Meta', [this.config.nMetaPlatform, this.config.nMetaEnvironment].join(';'));
             }
             if(options.headers) {
                 options.headers.forEach((values, name) => _xhr.setRequestHeader(name, values.join(',')));

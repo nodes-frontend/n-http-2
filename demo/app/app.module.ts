@@ -1,18 +1,34 @@
-import {NgModule, ApplicationRef} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import { NgModule, ApplicationRef } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
-import {NHttpConfig} from '../../lib/n-http.config';
-import {NHttpModule} from '../../n-http';
+import { NHttpConfig } from '../../lib/n-http.config';
+import { NHttpModule } from '../../n-http';
+import { NEndpoints } from "../../lib/n-endpoints";
 
-export function ConfigureNHttp() {
+export function createNHttpConfig() {
   return new NHttpConfig({
-    // globalHeaders: [{'jamBam': 'slamPan'},{'flap': 'jack'}],
+    // globalHeaders: [
+    //     {'Foo': 'Bar'}
+    // ],
+    nMetaPlatform: 'web',
+    nMetaEnvironment: 'development',
+    nMetaDisable: true
   });
+}
+
+export function createNEndpoints() {
+  return new NEndpoints(
+      {
+        projectName: 'api-sandbox',
+        environment: 'staging'
+      },
+      require('./api-endpoints.json')
+  );
 }
 
 @NgModule({
@@ -20,7 +36,16 @@ export function ConfigureNHttp() {
     BrowserModule,
     // HttpModule,
     FormsModule,
-    NHttpModule.forRoot(ConfigureNHttp())
+    NHttpModule.forRoot(
+        {
+          provide: NHttpConfig,
+          useFactory: (createNHttpConfig)
+        },
+        {
+          provide: NEndpoints,
+          useFactory: (createNEndpoints)
+        }
+    )
   ],
   declarations: [
     AppComponent,
