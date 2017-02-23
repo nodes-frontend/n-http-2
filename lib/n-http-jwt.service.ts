@@ -17,24 +17,18 @@ import 'rxjs/add/observable/throw';
 import {NHttpUtils} from "./n-http-utils";
 
 @Injectable()
-export class NHttp {
+export class NHttpJWT {
 
     private config: INHttpConfig;
+    public tokenStream: Observable<string>;
 
     constructor(options: NHttpConfig, private http: Http, private httpUtils: NHttpUtils, private errorHandler: ErrorHandler, private defOpts?: RequestOptions) {
         this.config = options.getConfig();
-    }
 
-    // public setGlobalHeaders(headers: Array<Object>, request: Request | RequestOptionsArgs) {
-    //     if (!request.headers) {
-    //         request.headers = new Headers();
-    //     }
-    //     headers.forEach((header: Object) => {
-    //         let key: string = Object.keys(header)[0];
-    //         let headerValue: string = (header as any)[key];
-    //         (request.headers as Headers).set(key, headerValue);
-    //     });
-    // }
+        this.tokenStream = new Observable<string>((observable: any) => {
+            observable.next(this.config.jwtTokenGetter());
+        })
+    }
 
     public request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (typeof url === 'string') {
@@ -84,31 +78,17 @@ export class NHttp {
         return this.requestHelper({ body: '', method: RequestMethod.Options, url: url }, options);
     }
 
-    // private mergeOptions(providedOpts: RequestOptionsArgs, defaultOpts?: RequestOptions) {
-    //     let newOptions = defaultOpts || new RequestOptions();
-    //     if (this.config.globalHeaders) {
-    //         this.setGlobalHeaders(this.config.globalHeaders, providedOpts);
-    //     }
-    //     if (this.config.nMetaDisable === false) {
-    //         const nMetaHeader = this.buildNMetaHeader(this.config);
-    //         this.setGlobalHeaders([nMetaHeader], providedOpts);
-    //     }
-    //
-    //     newOptions = newOptions.merge(new RequestOptions(providedOpts));
-    //
-    //     return newOptions;
-    // }
-
     private requestHelper(requestArgs: RequestOptionsArgs, additionalOptions?: RequestOptionsArgs): Observable<Response> {
         let options = new RequestOptions(requestArgs);
         if (additionalOptions) {
             options = options.merge(additionalOptions);
         }
+
         return this.request(new Request(this.httpUtils.mergeOptions(options, this.config, this.defOpts)));
     }
 
-    // private buildNMetaHeader(options: INHttpConfig) {
-    //     return {'N-Meta': [options.nMetaPlatform, options.nMetaEnvironment].join(';')};
-    // }
+    private requestWithToken(req: Request, token: string): Observable<Response> {
+        return this.
+    }
 
 }

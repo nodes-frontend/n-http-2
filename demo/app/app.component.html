@@ -5,6 +5,10 @@
 
   <!-- Images (and assets) are parsed and loaded from within the public directory -->
   <img src="/img/angular.png">
+  
+  <input type="email" [(ngModel)]="email">
+  <input type="password" [(ngModel)]="password">
+  <button (click)="login()">LOGIN</button>
 
   <div>
     <input type="file" (change)="onFileInputChange($event)">
