@@ -14,7 +14,7 @@ import { INHttpConfig, NHttpConfig } from './n-http.config';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {NHttpUtils} from "./n-http-request";
+import {NHttpUtils} from "./n-http-utils";
 
 @Injectable()
 export class NHttp {

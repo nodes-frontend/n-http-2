@@ -5,7 +5,7 @@ import { NHttpConfig, nHttpConfigFactory } from './lib/n-http.config';
 import { NHttp } from './lib/n-http.service';
 import { NHttpUpload } from './lib/n-http-fileupload.service';
 import { NEndpoints, nEndpointsFactory } from "./lib/n-endpoints";
-import {NHttpUtils} from "./lib/n-http-request";
+import {NHttpUtils} from "./lib/n-http-utils";
 
 // for manual imports
 export * from './lib/index';

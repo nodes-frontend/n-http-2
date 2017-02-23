@@ -14,7 +14,7 @@ import { INHttpConfig, NHttpConfig } from './n-http.config';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {NHttpUtils} from "./n-http-request";
+import {NHttpUtils} from "./n-http-utils";
 
 @Injectable()
 export class NHttpJWT {
@@ -87,5 +87,8 @@ export class NHttpJWT {
         return this.request(new Request(this.httpUtils.mergeOptions(options, this.config, this.defOpts)));
     }
 
+    private requestWithToken(req: Request, token: string): Observable<Response> {
+        return this.
+    }
 
 }
