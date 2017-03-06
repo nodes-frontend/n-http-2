@@ -1,13 +1,11 @@
-import {Injectable} from "@angular/core";
-import {RequestOptionsArgs, RequestOptions, Request, Headers, Response} from "@angular/http";
-import {INHttpConfig, NHttpConfig} from "./n-http.config";
-import {Observable} from "rxjs";
-
+import {Injectable} from '@angular/core';
+import {RequestOptionsArgs, RequestOptions, Request, Headers} from '@angular/http';
+import {INHttpConfig} from './n-http.config';
 
 @Injectable()
 export class NHttpUtils {
 
-    public setGlobalHeaders(headers: Array<Object>, request: Request | RequestOptionsArgs) {
+    public setGlobalHeaders(headers: Object[], request: Request | RequestOptionsArgs) {
         if (!request.headers) {
             request.headers = new Headers();
         }
@@ -17,7 +15,7 @@ export class NHttpUtils {
             (request.headers as Headers).set(key, headerValue);
         });
     }
-    
+
     public mergeOptions(providedOpts: RequestOptionsArgs, config: INHttpConfig, defaultOpts?: RequestOptions) {
         let newOptions = defaultOpts || new RequestOptions();
         if (config.globalHeaders) {

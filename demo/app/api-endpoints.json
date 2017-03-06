@@ -1,27 +1,7 @@
 {
-	"posts": {
-		"list": "posts",
-		"single": "posts/:postId",
-		"create": "posts/create",
-		"update": "posts/:postId/update",
-		"patch": "posts/:postId/patch",
-		"remove": "posts/:postId/delete",
-		"nooneKnows": "posts/:postId/too/many/sub/routes"
-	},
-	"auth": {
-		"login": "users/login",
-		"logout": "users/logout",
-		"create": "users",
-		"me": "users/me",
-		"regenerateToken": "users/token/regenerate",
-		"resetPassword": "users/reset-password/request"
-	},
-	"listings": {
-		"list": "listings",
-		"single": "listings/:listingId"
-	},
-	"messages": {
-		"list": "messages",
-		"single": "messages/:messageId"
+	"admin": {
+		"login": "admin/login",
+		"create": "admin/users",
+		"me": "admin/me"
 	}
 }

@@ -8,24 +8,26 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 import { NHttpConfig } from '../../lib/n-http.config';
 import { NHttpModule } from '../../n-http';
-import { NEndpoints } from "../../lib/n-endpoints";
+import { NEndpoints } from '../../lib/n-endpoints';
 
 export function createNHttpConfig() {
   return new NHttpConfig({
     // globalHeaders: [
     //     {'Foo': 'Bar'}
     // ],
-    nMetaPlatform: 'web',
-    nMetaEnvironment: 'development',
-    // nMetaDisable: true
+    // nMetaPlatform: 'web',
+    // nMetaEnvironment: 'development',
+    jwtRefreshTokenUrl: 'admin/refresh',
+    nMetaDisable: true
   });
 }
 
 export function createNEndpoints() {
   return new NEndpoints(
       {
-        projectName: 'api-sandbox',
-        environment: 'staging'
+        staticUrl: 'https://api.vapor.cloud'
+        // projectName: 'api-sandbox',
+        // environment: 'staging'
       },
       require('./api-endpoints.json')
   );

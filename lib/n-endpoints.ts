@@ -5,6 +5,7 @@ export interface INEndpoints {
     envPostfix: string;
     apiPrefix: string;
     apiVersion: string;
+    staticUrl: string;
 }
 
 export interface INEndpointsOptional {
@@ -14,6 +15,7 @@ export interface INEndpointsOptional {
     envPostfix?: string;
     apiPrefix?: string;
     apiVersion?: string;
+    staticUrl?: string;
 }
 
 export const NEndpointsDefaults: INEndpoints = {
@@ -22,7 +24,8 @@ export const NEndpointsDefaults: INEndpoints = {
     environment: 'development',
     envPostfix: 'like.st',
     apiPrefix: 'api',
-    apiVersion: 'v1'
+    apiVersion: 'v1',
+    staticUrl: ''
 };
 
 export function nEndpointsFactory(config: INEndpointsOptional, routes?: Object): NEndpoints {
@@ -37,7 +40,7 @@ export class NEndpoints {
     constructor(_config: INEndpointsOptional, routes?: Object) {
         _config = _config || {};
 
-        if(_config.projectName.length < 1) {
+        if(_config.projectName && _config.projectName.length < 1) {
             throw new Error(
                 'Dont forget to configure the projectName!'
             );
@@ -52,6 +55,11 @@ export class NEndpoints {
     }
 
     get rootUrl(): string {
+
+        if(this._config.staticUrl.length > 0) {
+            return this._config.staticUrl;
+        }
+
         return [
             this._config.protocol,
             '://',

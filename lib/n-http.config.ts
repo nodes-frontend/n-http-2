@@ -1,25 +1,26 @@
-// This is the interface others must implement! - but thats weird, optioinals should be the DEFAULTS :D
 export interface INHttpConfig {
-    globalHeaders: Array<Object>;
+    globalHeaders: Object[];
     nMetaPlatform: string;
     nMetaEnvironment: string;
     nMetaDisable: boolean;
     jwtHeaderName: string;
     jwtHeaderPrefix: string;
     jwtTokenName: string;
-    jwtTokenGetter: () => string | Promise<string>;
+    jwtRefreshTokenName: string;
+    jwtRefreshTokenUrl: string;
 }
 
 // This is the interface to merge!
 export interface INHttpConfigOptional {
-    globalHeaders?: Array<Object>;
+    globalHeaders?: Object[];
     nMetaPlatform?: string;
     nMetaEnvironment?: string;
     nMetaDisable?: boolean;
     jwtHeaderName?: string;
     jwtHeaderPrefix?: string;
     jwtTokenName?: string;
-    jwtTokenGetter?: () => string | Promise<string>;
+    jwtRefreshTokenName?: string;
+    jwtRefreshTokenUrl?: string;
 }
 // This is to merge!
 export const NHttpConfigDefaults: INHttpConfig = {
@@ -30,7 +31,8 @@ export const NHttpConfigDefaults: INHttpConfig = {
     jwtHeaderName: 'Authorization',
     jwtHeaderPrefix: 'Bearer',
     jwtTokenName: 'id_token',
-    jwtTokenGetter: () => localStorage.getItem(NHttpConfigDefaults.jwtTokenName) as string
+    jwtRefreshTokenName: 'refresh_token',
+    jwtRefreshTokenUrl: ''
 };
 
 export function nHttpConfigFactory(config: INHttpConfigOptional): NHttpConfig {
@@ -53,10 +55,6 @@ export class NHttpConfig {
             throw new Error(
                 'NHttpConfig nMetaEnvironment, it is required if platform is defined'
             );
-        }
-
-        if(_config.jwtTokenName && !_config.jwtTokenGetter) {
-            this._config.jwtTokenGetter = () => localStorage.getItem(_config.jwtTokenName) as string;
         }
 
         this._config = Object.assign({}, NHttpConfigDefaults, _config);

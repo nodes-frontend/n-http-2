@@ -9,6 +9,7 @@
   <input type="email" [(ngModel)]="email">
   <input type="password" [(ngModel)]="password">
   <button (click)="login()">LOGIN</button>
+  <button (click)="somethingSecure()">TESTJWT</button>
 
   <div>
     <input type="file" (change)="onFileInputChange($event)">
@@ -17,6 +18,16 @@
 
   <div>
     <button (click)="getSomething()">Try GET</button>
+  </div>
+  
+  <div style="margin: 100px; background-color: #eeeeee;">
+    <form novalidate (submit)="createUser()">
+      <input type="email" name="email" [(ngModel)]="user.email" placeholder="email">
+      <input type="password" name="password" [(ngModel)]="user.password" placeholder="password">
+      <input type="text" name="first" [(ngModel)]="user.name.first" placeholder="name.first">
+      <input type="text" name="last" [(ngModel)]="user.name.last" placeholder="name.last">
+      <button type="submit">Create User</button>
+    </form>
   </div>
 </main>
 <footer>

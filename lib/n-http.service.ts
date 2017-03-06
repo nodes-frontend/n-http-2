@@ -1,7 +1,6 @@
 import { Injectable, ErrorHandler } from '@angular/core';
 import {
     Http,
-    Headers,
     Request,
     RequestOptions,
     RequestOptionsArgs,
@@ -10,31 +9,24 @@ import {
 } from '@angular/http';
 
 import { INHttpConfig, NHttpConfig } from './n-http.config';
+import { NEndpoints } from './n-endpoints';
+import { NHttpUtils } from './n-http-utils';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {NHttpUtils} from "./n-http-utils";
 
 @Injectable()
 export class NHttp {
 
     private config: INHttpConfig;
 
-    constructor(options: NHttpConfig, private http: Http, private httpUtils: NHttpUtils, private errorHandler: ErrorHandler, private defOpts?: RequestOptions) {
+    constructor(
+        options: NHttpConfig, endpoints: NEndpoints, private http: Http, private httpUtils: NHttpUtils,
+        private errorHandler: ErrorHandler, private defOpts?: RequestOptions
+    ) {
         this.config = options.getConfig();
     }
-
-    // public setGlobalHeaders(headers: Array<Object>, request: Request | RequestOptionsArgs) {
-    //     if (!request.headers) {
-    //         request.headers = new Headers();
-    //     }
-    //     headers.forEach((header: Object) => {
-    //         let key: string = Object.keys(header)[0];
-    //         let headerValue: string = (header as any)[key];
-    //         (request.headers as Headers).set(key, headerValue);
-    //     });
-    // }
 
     public request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (typeof url === 'string') {
