@@ -1,15 +1,20 @@
-import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
+import {NgModule, ModuleWithProviders, Optional, SkipSelf} from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { NHttpConfig, nHttpConfigFactory } from './lib/n-http.config';
-import { NEndpoints, nEndpointsFactory } from './lib/n-endpoints';
-import { NHttp } from './lib/n-http.service';
-import { NHttpUpload } from './lib/n-http-fileupload.service';
-import { NHttpUtils } from './lib/n-http-utils';
-import { NHttpJWT } from './lib/n-http-jwt.service';
+import {NHttp} from "./n-http.service";
+import {NHttpJWT} from "./n-http-jwt.service";
+import {NHttpUpload} from "./n-http-fileupload.service";
+import {NHttpUtils} from "./n-http-utils";
+import {NHttpConfig, nHttpConfigFactory} from "./n-http.config";
+import {NEndpoints, nEndpointsFactory} from "./n-endpoints";
 
-// for manual imports
-export * from './lib/index';
+export * from './n-endpoints';
+export * from './n-http.config';
+export * from './n-http.service';
+export * from './n-http-fileupload.service';
+export * from './n-http-jwt.service';
+export * from './n-http-utils';
+export * from './n-jwt-helper';
 
 @NgModule({
   imports: [HttpModule],
@@ -34,9 +39,8 @@ export class NHttpModule {
     return {
       ngModule: NHttpModule,
       providers: [
-          providedConfig,
-          providedEndpoints
-        // {provide: NHttpConfig, useClass: BaseNHttpConfig}
+        providedConfig,
+        providedEndpoints
       ]
     };
   }

@@ -88,6 +88,14 @@ export class NHttpJWT {
         }
     }
 
+    public clearToken(): void {
+        localStorage.removeItem(this.config.jwtTokenName);
+
+        if(localStorage.getItem(this.config.jwtRefreshTokenName)) {
+            localStorage.removeItem(this.config.jwtRefreshTokenName);
+        }
+    }
+
     public refreshToken(token: string): Observable<Response> {
 
         const url = this.endpoints.makeUrl([this.config.jwtRefreshTokenUrl]);

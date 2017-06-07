@@ -1,7 +1,0 @@
-{
-	"admin": {
-		"login": "admin/login",
-		"create": "admin/users",
-		"me": "admin/me"
-	}
-}
