@@ -40,10 +40,6 @@ export class NHttp {
         let req: Request = url as Request;
 
         return this.http.request(req).catch((error: Response) => {
-            // Forward 500+ errors to error handler
-            if (error.status >= 500) {
-                this.errorHandler.handleError(error.toString());
-            }
             return Observable.throw(error);
         });
     }
