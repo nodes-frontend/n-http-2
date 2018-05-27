@@ -1,4 +1,4 @@
-# n-http-2
+# ⛔️ [DEPRECATED] n-http-2
 
 ## Installation
 
