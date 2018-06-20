@@ -1,4 +1,5 @@
-# ⛔️ [DEPRECATED] n-http-2
+# n-http-2
+_Not maintained by Nodes anymore_
 
 ## Installation
 
